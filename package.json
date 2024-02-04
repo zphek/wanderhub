@@ -1,0 +1,21 @@
+{
+  "name": "wanderhub",
+  "version": "1.0.0",
+  "description": "Travel social media",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd __client && npm run dev",
+    "server": "cd __server && npx nodemon app.js"
+  },
+  "keywords": [
+    "travel",
+    "app",
+    "socialmedia"
+  ],
+  "author": "Bernardo Báez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
