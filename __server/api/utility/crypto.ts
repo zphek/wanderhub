@@ -1,22 +1,17 @@
-import CryptoJS from 'crypto-js';
+//import CryptoJS from 'crypto-js';
 import * as dotenv from 'dotenv';
+import bcript from "bcrypt";
 dotenv.config();
 
-const key:string = process.env.KEY || '';
+const key:number = 13;
 
 export class crypto{
-
-    public encryptPassword(password:string):string{
-        const ciphertext = CryptoJS.AES.encrypt(password, key);
-
-        return ciphertext.toString();
+    public async encryptPassword(password:string) {
+        let response:string = await bcript.hash(password, key);
+        return response;
     }
 
-    public decryptPassword(encryptPassword:string){
-        const keyWordArray = CryptoJS.enc.Utf8.parse(key);
-    
-        const bytes = CryptoJS.AES.decrypt(encryptPassword, keyWordArray);
-    
-        return bytes.toString(CryptoJS.enc.Utf8);
+    public async comparePassword(password:string, encryptPassword:string){
+        return await bcript.compare(password, encryptPassword);
     }
 }

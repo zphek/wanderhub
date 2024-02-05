@@ -11,4 +11,4 @@ Router
     .get("/getUser", getUser)
     .get("/getUsers", getUsers)
     .get("/signin", signIn);
-module.exports = Router;
+exports.default = Router;

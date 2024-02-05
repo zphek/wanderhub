@@ -1,8 +1,9 @@
 import { faClose, faPeopleGroup } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import sendReq from "../../helpers/sendReq";
 
-const NewDiscussion = ({setWindow}) => {
+const NewDiscussion = ({setWindow, setDiscussion}) => {
     const [counter, setCounter] = useState(0);
     const [formData, setFormData] = useState({
         topic: "",
@@ -14,11 +15,29 @@ const NewDiscussion = ({setWindow}) => {
     }
 
     function handleChange(e){
+        if(e.target.name == "description"){
             setCounter(e.target.value.length);
+        }
+
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value  // Update the specific field in formData
+        }));
     }
 
     function handleSubmit(e){
+        e.preventDefault();
 
+        sendReq("http://localhost:3000/v1/discussion/createDiscussion", "post", formData, localStorage.getItem("token"))
+        .then(({data})=>{
+            //setDiscussion(prev => [...prev, data])
+            console.log(data);
+
+            setWindow(false);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     }
 
     return (<div className="fixed top-0 left-0 w-screen h-screen bg-slate-600/50 backdrop-blur-md flex items-center justify-center">
@@ -29,7 +48,7 @@ const NewDiscussion = ({setWindow}) => {
                 </div>
 
                 <h3 className="text-xl font-Abgalumo text-blue-600 font-bold mt-3">TOPIC</h3>
-                <input name="topic" type="text" className="py-2 px-3 border-2 border-slate-400/20 rounded-xl outline-none" placeholder="Write the topic..." maxLength={20} required/>
+                <input name="topic" type="text" className="py-2 px-3 border-2 border-slate-400/20 rounded-xl outline-none" placeholder="Write the topic..." maxLength={100} onChange={handleChange} required/>
                 
                 <h3 className="text-xl font-Abgalumo text-blue-600 font-bold">DESCRIPTION</h3>
                 <textarea name="description" id="" rows="10" className={`py-2 px-3 border-2 border-slate-400/20 rounded-xl outline-none ${counter > 1500 ? "text-red-500" : ""}`} placeholder="Write the description..." onChange={handleChange} required></textarea>

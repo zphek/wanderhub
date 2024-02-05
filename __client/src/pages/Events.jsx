@@ -1,5 +1,5 @@
 const Events = () => {
-    return (<div>
+    return (<div className="min-h-screen">
         
     </div>);
 }

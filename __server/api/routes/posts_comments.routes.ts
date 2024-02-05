@@ -8,4 +8,4 @@ Router
 .get("/getUsers", getUsers)
 .get("/signin", signIn)
 
-module.exports = Router;
+export default Router;

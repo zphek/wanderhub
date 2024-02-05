@@ -13,50 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.services = void 0;
-const user_model_1 = __importDefault(require("../models/user.model"));
-const crypto_1 = require("../utility/crypto");
-const { comparePassword, encryptPassword } = new crypto_1.crypto;
+const discussion_model_1 = __importDefault(require("../models/discussion.model"));
 class services {
-    signIn(username, password) {
+    createDiscussion(id, topic, description) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findOne({
-                where: {
-                    USERNAME: username
-                }
-            });
-        });
-    }
-    createUser(username, password, url_image, full_name, email) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield user_model_1.default.create({
-                ID_USER: null,
-                USERNAME: username,
-                USER_PASSWORD: yield encryptPassword(password),
-                FULL_NAME: full_name,
-                EMAIL: email,
-                URL_IMAGE: url_image,
+            return yield discussion_model_1.default.create({
+                ID_DISCUSSION: null,
+                ID_USER: id,
+                DISCUSSION_TOPIC: topic,
+                CAPTION: description,
                 createdAt: new Date(),
                 updatedAt: new Date()
             });
         });
     }
-    getUser(user_id) {
+    getDiscussion(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findByPk(user_id);
-        });
-    }
-    getUserById(USERNAME) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findOne({
+            return yield discussion_model_1.default.findOne({
                 where: {
-                    USERNAME
+                    ID_DISCUSSION: id
                 }
             });
         });
     }
-    getUsers() {
+    getDiscussions() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findAll();
+            return yield discussion_model_1.default.findAll();
         });
     }
 }

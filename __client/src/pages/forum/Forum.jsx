@@ -6,10 +6,21 @@ import Agregar from "../../assets/agregar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import NewDiscussion from "./NewDiscussion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import sendReq from "../../helpers/sendReq";
 
 const Forum = () => {
     const [window, setWindow] = useState(false);
+    const [discussions, setDiscussions] = useState([]);
+    const [filtered, setFiltered] = useState(0);
+
+    useEffect(() => {
+        sendReq("http://localhost:3000/v1/discussion/getDiscussions")
+            .then(({data}) => {
+                setDiscussions(data.reverse());  // Spread the previous state correctly
+                console.log(data);
+            });
+    }, []);
 
     return (<>
         <div className="flex flex-col justify-center items-center">
@@ -27,28 +38,24 @@ const Forum = () => {
                     <div className="flex flex-row gap-x-2 items-center">
                         <img src={forum} alt="" className="h-8 w-8"/>
                         <h2 className="text-white font-extrabold text-lg">WanderHub community</h2>
-                        <h2 className="text-white text-lg">> WanderHub discussions</h2>
+                        <h2 className="text-white text-lg">{'>'} WanderHub discussions</h2>
                     </div>
 
-                    <button className="outline-none flex items-center gap-x-2 text-white font-extrabold" onClick={e=>{
+                    {localStorage.getItem("token") && <button className="outline-none flex items-center gap-x-2 text-white font-extrabold" onClick={e=>{
                         setWindow(true);
                     }}>
                         <FontAwesomeIcon icon={faPlusCircle} size="lg"/>
                         <h2>New discussion</h2>
-                    </button>
+                    </button>}
                 </div>
                 
-                <div className="discussions flex flex-row flex-wrap mt-6 gap-x-8 gap-y-8 items-center flex-grow mb-8">
-                    <Discussion/>  
-                    <Discussion/>  
-                    <Discussion/>  
-                    <Discussion/>   
-                    <Discussion/>  
-                    <Discussion/>  
-                    <Discussion/> 
-                    <Discussion/>  
-                    <Discussion/>  
-                    <Discussion/>   
+                <div className="discussions flex flex-row flex-wrap mt-6 gap-x-8 gap-y-8 items-start flex-grow mb-8">
+                    {discussions.length > 0 ? (
+                        discussions.map(ele=> {
+                        return <Discussion key={ele.ID_DISCUSSION} data={ele} setDiscussion={setDiscussions}/>})
+                    ) : (
+                        <h2 className="mt-5 w-[100%] text-center text-xl text-white font-bold">There's no discussions.</h2>
+                    )}  
                 </div>
 
                 <button className="flex flex-row justify-center items-center gap-x-3 mb-5 text-center">

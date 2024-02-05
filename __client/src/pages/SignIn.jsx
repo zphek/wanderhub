@@ -1,21 +1,27 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import sendReq from "../helpers/sendReq";
 
 const SignIn = () => {
+    let navigate = useNavigate();
     let [state, setState] = useState({error: false, message: ""});
     let [formData, setFormData] = useState({
-        user: null,
+        username: null,
         password: null
     });
     
     const handleSubmit = (e)=>{
         e.preventDefault();
 
-        sendReq("http://localhost:3000/v1/createUser", "post", formData)
-        .then(response=>{
-            console.log(response);
+        sendReq("http://localhost:3000/v1/user/signin", "post", formData)
+        .then(({data})=>{
+            console.log(data);
+            if(data.auth){
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("auth", true);
+                navigate("/");
+            }
         })
         .catch(err=>{
             console.log(err);

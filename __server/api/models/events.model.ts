@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../connectionDB";
 
-const Post = sequelize.define("posts", {
+const events = sequelize.define("userEvents", {
     ID_POST: {
         primaryKey: true,
         type: DataTypes.INTEGER,
@@ -17,17 +17,4 @@ const Post = sequelize.define("posts", {
     updatedAt: DataTypes.DATE
 });
 
-// sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
-// .then(function(){
-//     return sequelize.sync({ force: true });
-// })
-// .then(function(){
-//     return sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
-// })
-// .then(function(){
-//     console.log('Database synchronised.');
-// }, function(err){
-//     console.log(err);
-// });
-
-export default Post;
+export default events;

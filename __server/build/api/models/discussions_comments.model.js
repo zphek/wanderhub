@@ -9,16 +9,16 @@ const D_C = connectionDB_js_1.default.define("discussions_comments", {
     ID_DISCUSSION: DataTypes.INTEGER,
     ID_COMMENT: DataTypes.STRING
 });
-connectionDB_js_1.default.query('SET FOREIGN_KEY_CHECKS = 0')
-    .then(function () {
-    return connectionDB_js_1.default.sync({ force: true });
-})
-    .then(function () {
-    return connectionDB_js_1.default.query('SET FOREIGN_KEY_CHECKS = 1');
-})
-    .then(function () {
-    console.log('Database synchronised.');
-}, function (err) {
-    console.log(err);
-});
+// sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+// .then(function(){
+//     return sequelize.sync({ force: true });
+// })
+// .then(function(){
+//     return sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+// })
+// .then(function(){
+//     console.log('Database synchronised.');
+// }, function(err){
+//     console.log(err);
+// });
 exports.default = D_C;

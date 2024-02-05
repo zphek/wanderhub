@@ -12,52 +12,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.services = void 0;
-const user_model_1 = __importDefault(require("../models/user.model"));
-const crypto_1 = require("../utility/crypto");
-const { comparePassword, encryptPassword } = new crypto_1.crypto;
+const post_model_1 = __importDefault(require("../models/post.model"));
 class services {
-    signIn(username, password) {
+    createPost(CAPTION, ID_USER) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findOne({
-                where: {
-                    USERNAME: username
-                }
-            });
-        });
-    }
-    createUser(username, password, url_image, full_name, email) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield user_model_1.default.create({
-                ID_USER: null,
-                USERNAME: username,
-                USER_PASSWORD: yield encryptPassword(password),
-                FULL_NAME: full_name,
-                EMAIL: email,
-                URL_IMAGE: url_image,
+            return yield post_model_1.default.create({
+                ID_POST: null,
+                URL_IMAGE: "",
+                CAPTION,
+                ID_USER,
+                LIKES: 0,
                 createdAt: new Date(),
                 updatedAt: new Date()
             });
         });
     }
-    getUser(user_id) {
+    deletePost(ID_POST, ID_USER) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findByPk(user_id);
-        });
-    }
-    getUserById(USERNAME) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findOne({
+            return yield post_model_1.default.destroy({
                 where: {
-                    USERNAME
+                    ID_POST,
+                    ID_USER
                 }
             });
         });
     }
-    getUsers() {
+    getPosts() {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            return yield user_model_1.default.findAll();
+            return yield ((_a = post_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query("SELECT * FROM posts INNER JOIN users ON users.ID_USER = posts.ID_USER;"));
+        });
+    }
+    getPostsByUser(USERNAME) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield ((_a = post_model_1.default.sequelize) === null || _a === void 0 ? void 0 : _a.query(`SELECT * FROM posts INNER JOIN users ON users.ID_USER = posts.ID_USER WHERE users.USERNAME = '${USERNAME}';`));
         });
     }
 }
-exports.services = services;
+exports.default = services;

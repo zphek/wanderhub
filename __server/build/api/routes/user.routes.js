@@ -6,10 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Router = express_1.default.Router();
 const user_controllers_1 = __importDefault(require("../controllers/user.controllers"));
-const { signIn, createUser, getUser, getUsers } = new user_controllers_1.default;
+const { signIn, createUser, getUser, getUserById, getUsers } = new user_controllers_1.default;
 Router
     .post("/createUser", createUser)
-    .get("/getUser/:id", getUser)
+    .get("/getUser", getUser)
+    .get("/getUserBy/:username", getUserById)
     .get("/getUsers", getUsers)
-    .get("/signin", signIn);
+    .post("/signin", signIn);
 exports.default = Router;

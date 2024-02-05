@@ -1,10 +1,14 @@
 import axios from "axios";
 
-export default async function sendReq(url, method = "get", data = null){
+export default async function sendReq(url, method = "get", data = null, token = ""){
     
     let conf = {
         method,
-        url
+        url,
+        headers:{
+            "Authorization": token,
+            "Content-Type": "application/json"
+        }
     };
 
     if(method != "get"){

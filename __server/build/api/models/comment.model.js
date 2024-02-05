@@ -12,19 +12,22 @@ const Comment = connectionDB_1.default.define("comments", {
         autoIncrement: true
     },
     DESCRIPTION_C: sequelize_1.DataTypes.STRING,
-    ID_USER: sequelize_1.DataTypes.STRING,
-    LIKES: sequelize_1.DataTypes.INTEGER
+    ID_USER: sequelize_1.DataTypes.INTEGER,
+    ID_DISCUSSION: sequelize_1.DataTypes.INTEGER,
+    LIKES: sequelize_1.DataTypes.INTEGER,
+    createdAT: sequelize_1.DataTypes.DATE,
+    updatedAt: sequelize_1.DataTypes.DATE
 });
-connectionDB_1.default.query('SET FOREIGN_KEY_CHECKS = 0')
-    .then(function () {
-    return connectionDB_1.default.sync({ force: true });
-})
-    .then(function () {
-    return connectionDB_1.default.query('SET FOREIGN_KEY_CHECKS = 1');
-})
-    .then(function () {
-    console.log('Database synchronised.');
-}, function (err) {
-    console.log(err);
-});
-module.exports = Comment;
+// sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+// .then(function(){
+//     return sequelize.sync({ force: true });
+// })
+// .then(function(){
+//     return sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+// })
+// .then(function(){
+//     console.log('Database synchronised.');
+// }, function(err){
+//     console.log(err);
+// });
+exports.default = Comment;

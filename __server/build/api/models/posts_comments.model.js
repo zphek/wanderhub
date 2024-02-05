@@ -9,16 +9,16 @@ const P_C = connectionDB_1.default.define("posts_comments", {
     ID_POST: sequelize_1.DataTypes.INTEGER,
     ID_COMMENT: sequelize_1.DataTypes.INTEGER
 });
-connectionDB_1.default.query('SET FOREIGN_KEY_CHECKS = 0')
-    .then(function () {
-    return connectionDB_1.default.sync({ force: true });
-})
-    .then(function () {
-    return connectionDB_1.default.query('SET FOREIGN_KEY_CHECKS = 1');
-})
-    .then(function () {
-    console.log('Database synchronised.');
-}, function (err) {
-    console.log(err);
-});
+// sequelize.query('SET FOREIGN_KEY_CHECKS = 0')
+// .then(function(){
+//     return sequelize.sync({ force: true });
+// })
+// .then(function(){
+//     return sequelize.query('SET FOREIGN_KEY_CHECKS = 1')
+// })
+// .then(function(){
+//     console.log('Database synchronised.');
+// }, function(err){
+//     console.log(err);
+// });
 exports.default = P_C;
