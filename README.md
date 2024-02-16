@@ -1,4 +1,31 @@
 # WANDERHUB
+
+## APP IMAGES
+
+### LOGIN - PAGE
+![alt text](images/login.png)
+
+### REGISTER - PAGE
+![alt text](images/register.png)
+
+### HOME - PAGE
+![alt text](images/home.png)
+
+### HOME LOGGED - PAGE
+![alt text](images/home-logged.png)
+
+### FORUM - PAGE
+![alt text](images/forum.png)
+
+### NEW-DISCUSSION - WINDOW
+![alt text](images/new-discussion.png)
+
+### DISCUSSIONS - PAGE
+![alt text](images/discussion.png)
+
+### USER-INFO - PAGE
+![alt text](images/user-info.png)
+
 ## Description
 
 WANDERHUB is an application that facilitates connection among travelers worldwide. With its various modules, users can share experiences, discover new destinations, participate in events, and connect through a forum dedicated to travel enthusiasts.

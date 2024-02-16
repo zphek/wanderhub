@@ -4,7 +4,7 @@ const UserCard = ({data}) => {
     const {USERNAME, FULL_NAME} = data;
 
     return (
-        <Link to={`/user/${USERNAME}`} className={`bg-white shadow-lg rounded-sm p-5 flex items-start gap-x-5 max-w-[25rem] rounded-3xl hover:shadow-2xl transition-[400ms] cursor-pointer`}>
+        <Link to={`/user/${USERNAME}`} className={`bg-white shadow-lg rounded-sm p-5 flex items-start gap-x-5 max-w-[25rem] rounded-full hover:shadow-2xl transition-[400ms] cursor-pointer`}>
             <span className="w-20 h-20 bg-slate-400 rounded-full flex-shrink-0"></span>
             
             <div>
