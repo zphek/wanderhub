@@ -25,7 +25,7 @@ export default class controllers{
         const response = await comparePassword(password, dataValues.USER_PASSWORD);
         if(response && dataValues != null){
           const token:string = jwt.sign(dataValues, "20040915", {
-            expiresIn: 3000
+            expiresIn: 100000000000000000
           });
 
           req.session.user = dataValues;
